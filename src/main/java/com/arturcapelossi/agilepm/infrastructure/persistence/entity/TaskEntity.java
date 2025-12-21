@@ -39,7 +39,7 @@ public class TaskEntity {
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "user_story_id", nullable = false)
-    private UserStoryEntity userStoryEntity;
+    private UserStoryEntity userStory;
 
     @OneToMany(mappedBy = "task", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<CommentEntity> commentEntities = new ArrayList<>();
@@ -47,10 +47,10 @@ public class TaskEntity {
     @Column(name = "created_at", nullable = false)
     private LocalDateTime createdAt;
 
-    public TaskEntity(String title, String description, UserStoryEntity userStoryEntity) {
+    public TaskEntity(String title, String description, UserStoryEntity userStory) {
         this.title = title;
         this.description = description;
-        this.userStoryEntity = userStoryEntity;
+        this.userStory = userStory;
     }
 
     @PrePersist

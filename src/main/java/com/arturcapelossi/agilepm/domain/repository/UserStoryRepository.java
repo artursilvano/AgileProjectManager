@@ -9,8 +9,6 @@ import java.util.UUID;
 public interface UserStoryRepository {
     UserStory save(UserStory userStory);
     Optional<UserStory> findById(UUID id);
-    List<UserStory> findByProjectId(UUID projectId);
-    List<UserStory> findBySprintId(UUID sprintId);
+    List<UserStory> findAll();
     void delete(UUID id);
 }
-

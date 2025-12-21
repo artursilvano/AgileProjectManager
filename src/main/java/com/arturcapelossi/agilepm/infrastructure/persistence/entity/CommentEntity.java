@@ -28,7 +28,7 @@ public class CommentEntity {
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "task_id", nullable = false)
-    private TaskEntity taskEntity;
+    private TaskEntity task;
 
     @Column(name = "created_at", nullable = false)
     private LocalDateTime createdAt;

@@ -2,17 +2,13 @@ package com.arturcapelossi.agilepm.domain.repository;
 
 import com.arturcapelossi.agilepm.domain.model.Project;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
 public interface ProjectRepository {
-
     Project save(Project project);
-
-    Optional<Project> getById(UUID id);
-
-    void update(Project project);
-
+    Optional<Project> findById(UUID id);
+    List<Project> findAll();
     void delete(UUID id);
-
 }
