@@ -29,7 +29,7 @@ public class CreateUserStoryUseCase {
         userStory.setTitle(title);
         userStory.setDescription(description);
         userStory.setPriority(priority);
-        userStory.setStatus(StoryStatus.TODO); // Default status
+        userStory.setStatus(StoryStatus.BACKLOG); // Default status
         userStory.setProject(project);
         userStory.setCreatedAt(LocalDateTime.now());
 

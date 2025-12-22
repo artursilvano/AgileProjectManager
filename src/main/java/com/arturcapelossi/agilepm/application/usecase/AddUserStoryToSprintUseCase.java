@@ -4,6 +4,7 @@ import com.arturcapelossi.agilepm.domain.exception.BusinessRuleException;
 import com.arturcapelossi.agilepm.domain.exception.ResourceNotFoundException;
 import com.arturcapelossi.agilepm.domain.model.Sprint;
 import com.arturcapelossi.agilepm.domain.model.UserStory;
+import com.arturcapelossi.agilepm.domain.model.enums.StoryStatus;
 import com.arturcapelossi.agilepm.domain.repository.SprintRepository;
 import com.arturcapelossi.agilepm.domain.repository.UserStoryRepository;
 import lombok.RequiredArgsConstructor;
@@ -30,7 +31,7 @@ public class AddUserStoryToSprintUseCase {
         }
 
         userStory.setSprint(sprint);
+        userStory.setStatus(StoryStatus.TODO);
         return userStoryRepository.save(userStory);
     }
 }
-

@@ -75,5 +75,14 @@ public class DtoMapper {
         response.setCreatedAt(task.getCreatedAt());
         return response;
     }
-}
 
+    public CommentResponse toResponse(Comment comment) {
+        if (comment == null) return null;
+        CommentResponse response = new CommentResponse();
+        response.setId(comment.getId());
+        response.setContent(comment.getContent());
+        response.setAuthor(toResponse(comment.getAuthor()));
+        response.setCreatedAt(comment.getCreatedAt());
+        return response;
+    }
+}

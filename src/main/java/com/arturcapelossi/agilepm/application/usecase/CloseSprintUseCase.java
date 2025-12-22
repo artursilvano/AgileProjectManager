@@ -7,31 +7,27 @@ import com.arturcapelossi.agilepm.domain.model.enums.SprintStatus;
 import com.arturcapelossi.agilepm.domain.repository.SprintRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
 import java.util.UUID;
 
 @Component
 @RequiredArgsConstructor
-public class StartSprintUseCase {
+public class CloseSprintUseCase {
 
     private final SprintRepository sprintRepository;
 
+    @Transactional
     public Sprint execute(UUID sprintId) {
         Sprint sprint = sprintRepository.findById(sprintId)
                 .orElseThrow(() -> new ResourceNotFoundException("Sprint not found with id: " + sprintId));
 
-        if (sprint.getStatus() != SprintStatus.PLANNED) {
-            throw new BusinessRuleException("Only PLANNED sprints can be started. Current status: " + sprint.getStatus());
+        if (sprint.getStatus() != SprintStatus.ACTIVE) {
+            throw new BusinessRuleException("Only ACTIVE sprints can be closed.");
         }
 
-        // Business Rule: Only one active sprint per project
-        List<Sprint> activeSprints = sprintRepository.findByProjectIdAndStatus(sprint.getProject().getId(), SprintStatus.ACTIVE);
-        if (!activeSprints.isEmpty()) {
-            throw new BusinessRuleException("There is already an active sprint for this project.");
-        }
-
-        sprint.setStatus(SprintStatus.ACTIVE);
+        sprint.setStatus(SprintStatus.CLOSED);
         return sprintRepository.save(sprint);
     }
 }
+
