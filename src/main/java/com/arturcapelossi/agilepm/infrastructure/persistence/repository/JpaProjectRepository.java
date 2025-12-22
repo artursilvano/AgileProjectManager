@@ -8,7 +8,6 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 @Component
 public class JpaProjectRepository implements ProjectRepository {
@@ -37,7 +36,7 @@ public class JpaProjectRepository implements ProjectRepository {
     public List<Project> findAll() {
         return jpaRepo.findAll().stream()
                 .map(mapper::toModel)
-                .collect(Collectors.toList());
+                .toList();
     }
 
     @Override

@@ -1,15 +1,14 @@
 package com.arturcapelossi.agilepm.infrastructure.persistence.repository;
 
 import com.arturcapelossi.agilepm.domain.model.Sprint;
+import com.arturcapelossi.agilepm.domain.model.enums.SprintStatus;
 import com.arturcapelossi.agilepm.domain.repository.SprintRepository;
 import com.arturcapelossi.agilepm.infrastructure.persistence.mapper.SprintMapper;
 import org.springframework.stereotype.Component;
 
-import com.arturcapelossi.agilepm.domain.model.enums.SprintStatus;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 @Component
 public class JpaSprintRepository implements SprintRepository {
@@ -38,14 +37,14 @@ public class JpaSprintRepository implements SprintRepository {
     public List<Sprint> findAll() {
         return jpaRepo.findAll().stream()
                 .map(mapper::toModel)
-                .collect(Collectors.toList());
+                .toList();
     }
 
     @Override
     public List<Sprint> findByProjectIdAndStatus(UUID projectId, SprintStatus status) {
         return jpaRepo.findByProjectEntityIdAndStatus(projectId, status).stream()
                 .map(mapper::toModel)
-                .collect(Collectors.toList());
+                .toList();
     }
 
     @Override

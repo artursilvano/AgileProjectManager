@@ -1,6 +1,5 @@
 package com.arturcapelossi.agilepm.application.usecase;
 
-import com.arturcapelossi.agilepm.domain.exception.BusinessRuleException;
 import com.arturcapelossi.agilepm.domain.exception.ResourceNotFoundException;
 import com.arturcapelossi.agilepm.domain.model.Project;
 import com.arturcapelossi.agilepm.domain.model.Sprint;
@@ -12,7 +11,6 @@ import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.List;
 import java.util.UUID;
 
 @Component
