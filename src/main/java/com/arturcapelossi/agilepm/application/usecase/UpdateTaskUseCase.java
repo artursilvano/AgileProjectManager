@@ -1,7 +1,6 @@
 package com.arturcapelossi.agilepm.application.usecase;
 
 import com.arturcapelossi.agilepm.api.dto.request.UpdateTaskRequest;
-import com.arturcapelossi.agilepm.domain.exception.BusinessRuleException;
 import com.arturcapelossi.agilepm.domain.exception.ResourceNotFoundException;
 import com.arturcapelossi.agilepm.domain.model.Task;
 import com.arturcapelossi.agilepm.domain.repository.TaskRepository;
@@ -22,18 +21,7 @@ public class UpdateTaskUseCase {
         Task task = taskRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Task not found with id: " + id));
 
-        if (request.getTitle() != null) {
-            task.setTitle(request.getTitle());
-        }
-        if (request.getDescription() != null) {
-            task.setDescription(request.getDescription());
-        }
-        if (request.getStatus() != null) {
-            if (task.getUserStory().getSprint() == null) {
-                throw new BusinessRuleException("Cannot change status of a task if the user story is in backlog.");
-            }
-            task.setStatus(request.getStatus());
-        }
+        task.update(request.getTitle(), request.getDescription(), request.getStatus());
 
         return taskRepository.save(task);
     }

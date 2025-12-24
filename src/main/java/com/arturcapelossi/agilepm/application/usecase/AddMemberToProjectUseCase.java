@@ -26,8 +26,7 @@ public class AddMemberToProjectUseCase {
         User user = userRepository.findByEmail(email)
                 .orElseThrow(() -> new ResourceNotFoundException("User not found with email: " + email));
 
-        project.getMembers().add(user);
+        project.addMember(user);
         projectRepository.save(project);
     }
 }
-

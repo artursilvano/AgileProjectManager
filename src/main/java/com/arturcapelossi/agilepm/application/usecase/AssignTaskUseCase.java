@@ -1,6 +1,5 @@
 package com.arturcapelossi.agilepm.application.usecase;
 
-import com.arturcapelossi.agilepm.domain.exception.BusinessRuleException;
 import com.arturcapelossi.agilepm.domain.exception.ResourceNotFoundException;
 import com.arturcapelossi.agilepm.domain.model.Task;
 import com.arturcapelossi.agilepm.domain.model.User;
@@ -25,15 +24,7 @@ public class AssignTaskUseCase {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new ResourceNotFoundException("User not found with id: " + userId));
 
-        boolean isMember = task.getUserStory().getProject().getMembers().stream()
-                .anyMatch(member -> member.getId().equals(userId));
-
-        if (!isMember) {
-            throw new BusinessRuleException("User is not a member of the project.");
-        }
-
-        task.setAssignedTo(user);
+        task.assignTo(user);
         return taskRepository.save(task);
     }
 }
-

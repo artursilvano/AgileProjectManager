@@ -21,17 +21,13 @@ public class StartSprintUseCase {
         Sprint sprint = sprintRepository.findById(sprintId)
                 .orElseThrow(() -> new ResourceNotFoundException("Sprint not found with id: " + sprintId));
 
-        if (sprint.getStatus() != SprintStatus.PLANNED) {
-            throw new BusinessRuleException("Only PLANNED sprints can be started. Current status: " + sprint.getStatus());
-        }
-
         // Business Rule: Only one active sprint per project
         List<Sprint> activeSprints = sprintRepository.findByProjectIdAndStatus(sprint.getProject().getId(), SprintStatus.ACTIVE);
         if (!activeSprints.isEmpty()) {
             throw new BusinessRuleException("There is already an active sprint for this project.");
         }
 
-        sprint.setStatus(SprintStatus.ACTIVE);
+        sprint.start();
         return sprintRepository.save(sprint);
     }
 }

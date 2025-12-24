@@ -18,5 +18,15 @@ public class User {
     private String passwordHash;
     private Role role;
     private LocalDateTime createdAt;
-}
 
+    public static User create(String name, String email, String passwordHash, Role role) {
+        User user = new User();
+        user.setId(UUID.randomUUID());
+        user.setName(name);
+        user.setEmail(email);
+        user.setPasswordHash(passwordHash);
+        user.setRole(role);
+        user.setCreatedAt(LocalDateTime.now());
+        return user;
+    }
+}

@@ -11,7 +11,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Component
@@ -30,13 +29,8 @@ public class CreateCommentUseCase {
         User author = userRepository.findByEmail(userEmail)
                 .orElseThrow(() -> new ResourceNotFoundException("User not found with email: " + userEmail));
 
-        Comment comment = new Comment();
-        comment.setContent(content);
-        comment.setTask(task);
-        comment.setAuthor(author);
-        comment.setCreatedAt(LocalDateTime.now());
+        Comment comment = Comment.create(content, task, author);
 
         return commentRepository.save(comment);
     }
 }
-

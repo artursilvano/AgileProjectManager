@@ -22,5 +22,28 @@ public class Project {
     private Set<User> members = new HashSet<>();
     private List<UserStory> userStories = new ArrayList<>();
     private LocalDateTime createdAt;
-}
 
+    public static Project create(String name, String description, User owner) {
+        Project project = new Project();
+        project.setId(UUID.randomUUID());
+        project.setName(name);
+        project.setDescription(description);
+        project.setOwner(owner);
+        project.getMembers().add(owner);
+        project.setCreatedAt(LocalDateTime.now());
+        return project;
+    }
+
+    public void addMember(User user) {
+        this.members.add(user);
+    }
+
+    public void update(String name, String description) {
+        if (name != null) {
+            this.name = name;
+        }
+        if (description != null) {
+            this.description = description;
+        }
+    }
+}

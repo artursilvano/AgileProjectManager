@@ -21,14 +21,8 @@ public class UpdateProjectUseCase {
         Project project = projectRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Project not found with id: " + id));
 
-        if (request.getName() != null) {
-            project.setName(request.getName());
-        }
-        if (request.getDescription() != null) {
-            project.setDescription(request.getDescription());
-        }
+        project.update(request.getName(), request.getDescription());
 
         return projectRepository.save(project);
     }
 }
-

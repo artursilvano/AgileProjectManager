@@ -1,9 +1,7 @@
 package com.arturcapelossi.agilepm.application.usecase;
 
-import com.arturcapelossi.agilepm.domain.exception.BusinessRuleException;
 import com.arturcapelossi.agilepm.domain.exception.ResourceNotFoundException;
 import com.arturcapelossi.agilepm.domain.model.Sprint;
-import com.arturcapelossi.agilepm.domain.model.enums.SprintStatus;
 import com.arturcapelossi.agilepm.domain.repository.SprintRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -22,12 +20,7 @@ public class CloseSprintUseCase {
         Sprint sprint = sprintRepository.findById(sprintId)
                 .orElseThrow(() -> new ResourceNotFoundException("Sprint not found with id: " + sprintId));
 
-        if (sprint.getStatus() != SprintStatus.ACTIVE) {
-            throw new BusinessRuleException("Only ACTIVE sprints can be closed.");
-        }
-
-        sprint.setStatus(SprintStatus.CLOSED);
+        sprint.close();
         return sprintRepository.save(sprint);
     }
 }
-

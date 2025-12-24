@@ -3,14 +3,12 @@ package com.arturcapelossi.agilepm.application.usecase;
 import com.arturcapelossi.agilepm.domain.exception.ResourceNotFoundException;
 import com.arturcapelossi.agilepm.domain.model.Project;
 import com.arturcapelossi.agilepm.domain.model.Sprint;
-import com.arturcapelossi.agilepm.domain.model.enums.SprintStatus;
 import com.arturcapelossi.agilepm.domain.repository.ProjectRepository;
 import com.arturcapelossi.agilepm.domain.repository.SprintRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Component
@@ -24,16 +22,8 @@ public class CreateSprintUseCase {
         Project project = projectRepository.findById(projectId)
                 .orElseThrow(() -> new ResourceNotFoundException("Project not found with id: " + projectId));
 
-        Sprint sprint = new Sprint();
-        sprint.setId(UUID.randomUUID());
-        sprint.setName(name);
-        sprint.setStartDate(startDate);
-        sprint.setEndDate(endDate);
-        sprint.setStatus(SprintStatus.PLANNED);
-        sprint.setProject(project);
-        sprint.setCreatedAt(LocalDateTime.now());
+        Sprint sprint = Sprint.create(name, startDate, endDate, project);
 
         return sprintRepository.save(sprint);
     }
 }
-

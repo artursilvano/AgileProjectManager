@@ -20,8 +20,7 @@ public class UnassignTaskUseCase {
         Task task = taskRepository.findById(taskId)
                 .orElseThrow(() -> new ResourceNotFoundException("Task not found with id: " + taskId));
 
-        task.setAssignedTo(null);
+        task.unassign();
         return taskRepository.save(task);
     }
 }
-

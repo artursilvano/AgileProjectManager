@@ -21,17 +21,8 @@ public class UpdateSprintUseCase {
         Sprint sprint = sprintRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Sprint not found with id: " + id));
 
-        if (request.getName() != null) {
-            sprint.setName(request.getName());
-        }
-        if (request.getStartDate() != null) {
-            sprint.setStartDate(request.getStartDate());
-        }
-        if (request.getEndDate() != null) {
-            sprint.setEndDate(request.getEndDate());
-        }
+        sprint.update(request.getName(), request.getStartDate(), request.getEndDate());
 
         return sprintRepository.save(sprint);
     }
 }
-

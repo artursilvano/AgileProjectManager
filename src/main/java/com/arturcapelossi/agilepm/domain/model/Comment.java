@@ -16,5 +16,14 @@ public class Comment {
     private User author;
     private Task task;
     private LocalDateTime createdAt;
-}
 
+    public static Comment create(String content, Task task, User author) {
+        Comment comment = new Comment();
+        comment.setId(UUID.randomUUID());
+        comment.setContent(content);
+        comment.setTask(task);
+        comment.setAuthor(author);
+        comment.setCreatedAt(LocalDateTime.now());
+        return comment;
+    }
+}
